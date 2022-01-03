@@ -11,21 +11,26 @@ class DetailViewController: UITableViewController {
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
     @IBOutlet weak var countryField: UITextField!
     @IBOutlet weak var capitalField: UITextField!
+    @IBOutlet weak var euroField: UITextField!
+    @IBOutlet weak var euroSwitch: UISwitch!
     
-    var countryName: String!
+    
+    var euCountry: EUCountry!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if countryName == nil {
-            countryName = ""
+        if euCountry == nil {
+            euCountry = EUCountry(name: "", capital: "", euro: false)
         }
 
-        countryField.text = countryName
+        countryField.text = euCountry.name
+        capitalField.text = euCountry.capital
+        euroSwitch.isOn = euCountry.euro
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        countryName = countryField.text
+        euCountry = EUCountry(name: countryField.text!, capital: capitalField.text!, euro: euroSwitch.isOn)
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
