@@ -38,6 +38,8 @@ class ViewController: UIViewController {
                    "United Kingdom"]
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +72,21 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             tableView.scrollToRow(at: newIndexPath, at: .bottom, animated: true)
         }
     }
+    
+    // to enable editting tableView
+    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+        if tableView.isEditing { // if you are editting then the button reads "Done"
+            tableView.setEditing(false, animated: true)
+            sender.title = "Edit" // change button title to "Edit"
+            addButton.isEnabled = true
+        } else {
+            tableView.setEditing(true, animated: true)
+            sender.title = "Done" // change button title to "Edit"
+            addButton.isEnabled = false
+        }
+    }
+    
+    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -85,4 +102,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    // for deleting a row options while editing tableView
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            EUArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    // for moving a row
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let itemToMove = EUArray[sourceIndexPath.row]
+        EUArray.remove(at: sourceIndexPath.row)
+        EUArray.insert(itemToMove, at: destinationIndexPath.row)
+    }
 }
