@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct EUCountry {
+struct Nation: Codable {
     var name: String
     var capital: String
     var euro: Bool
