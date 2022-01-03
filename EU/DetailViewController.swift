@@ -12,10 +12,20 @@ class DetailViewController: UITableViewController {
     @IBOutlet weak var countryField: UITextField!
     @IBOutlet weak var capitalField: UITextField!
     
+    var countryName: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if countryName == nil {
+            countryName = ""
+        }
 
-
+        countryField.text = countryName
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        countryName = countryField.text
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
