@@ -15,6 +15,7 @@
 		9080DC3127813B2500A5B93B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9080DC2F27813B2500A5B93B /* Main.storyboard */; };
 		9080DC3327813B2700A5B93B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9080DC3227813B2700A5B93B /* Assets.xcassets */; };
 		9080DC3627813B2700A5B93B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9080DC3427813B2700A5B93B /* LaunchScreen.storyboard */; };
+		9092D2A72784B54600400A8B /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9092D2A62784B54600400A8B /* ListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		9080DC3227813B2700A5B93B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9080DC3527813B2700A5B93B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9080DC3727813B2700A5B93B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9092D2A62784B54600400A8B /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				90024F072782A5BF00F072FC /* Struct.swift */,
 				9080DC2D27813B2500A5B93B /* ViewController.swift */,
 				90024F03278223D200F072FC /* DetailViewController.swift */,
+				9092D2A62784B54600400A8B /* ListTableViewCell.swift */,
 				9080DC2F27813B2500A5B93B /* Main.storyboard */,
 				9080DC3227813B2700A5B93B /* Assets.xcassets */,
 				9080DC3427813B2700A5B93B /* LaunchScreen.storyboard */,
@@ -149,6 +152,7 @@
 				9080DC2C27813B2500A5B93B /* SceneDelegate.swift in Sources */,
 				90024F082782A5BF00F072FC /* Struct.swift in Sources */,
 				90024F04278223D200F072FC /* DetailViewController.swift in Sources */,
+				9092D2A72784B54600400A8B /* ListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,92 +11,92 @@ class ViewController: UIViewController {
     
     var nations: [Nation] = []
     
-//    var  countryNames = ["Austria",
-//                         "Belgium",
-//                         "Bulgaria",
-//                         "Croatia",
-//                         "Cyprus",
-//                         "Czechia",
-//                         "Denmark",
-//                         "Estonia",
-//                         "Finland",
-//                         "France",
-//                         "Germany",
-//                         "Greece",
-//                         "Hungary",
-//                         "Ireland",
-//                         "Italy",
-//                         "Latvia",
-//                         "Lithuania",
-//                         "Luxembourg",
-//                         "Malta",
-//                         "Netherlands",
-//                         "Poland",
-//                         "Portugal",
-//                         "Romania",
-//                         "Slovakia",
-//                         "Slovenia",
-//                         "Spain",
-//                         "Sweden",
-//                         "United Kingdom"]
-//
-//    var countryCapitals = ["Vienna",
-//                           "Brussels",
-//                           "Sofia",
-//                           "Zagreb",
-//                           "Nicosia",
-//                           "Prague",
-//                           "Copenhagen",
-//                           "Tallinn",
-//                           "Helsinki",
-//                           "Paris",
-//                           "Berlin",
-//                           "Athens",
-//                           "Budapest",
-//                           "Dublin",
-//                           "Rome",
-//                           "Riga",
-//                           "Vilnius",
-//                           "Luxembourg (city)",
-//                           "Valetta",
-//                           "Amsterdam",
-//                           "Warsaw",
-//                           "Lisbon",
-//                           "Bucharest",
-//                           "Bratislava",
-//                           "Ljubljana",
-//                           "Madrid",
-//                           "Stockholm",
-//                           "London"]
-//
-//    var usesEuro = [true,
-//                    true,
-//                    false,
-//                    false,
-//                    true,
-//                    false,
-//                    false,
-//                    true,
-//                    true,
-//                    true,
-//                    true,
-//                    true,
-//                    false,
-//                    true,
-//                    true,
-//                    true,
-//                    true,
-//                    true,
-//                    true,
-//                    true,
-//                    false,
-//                    true,
-//                    false,
-//                    true,
-//                    true,
-//                    true,
-//                    false,
-//                    false]
+    var  countryNames = ["Austria",
+                         "Belgium",
+                         "Bulgaria",
+                         "Croatia",
+                         "Cyprus",
+                         "Czechia",
+                         "Denmark",
+                         "Estonia",
+                         "Finland",
+                         "France",
+                         "Germany",
+                         "Greece",
+                         "Hungary",
+                         "Ireland",
+                         "Italy",
+                         "Latvia",
+                         "Lithuania",
+                         "Luxembourg",
+                         "Malta",
+                         "Netherlands",
+                         "Poland",
+                         "Portugal",
+                         "Romania",
+                         "Slovakia",
+                         "Slovenia",
+                         "Spain",
+                         "Sweden",
+                         "United Kingdom"]
+
+    var countryCapitals = ["Vienna",
+                           "Brussels",
+                           "Sofia",
+                           "Zagreb",
+                           "Nicosia",
+                           "Prague",
+                           "Copenhagen",
+                           "Tallinn",
+                           "Helsinki",
+                           "Paris",
+                           "Berlin",
+                           "Athens",
+                           "Budapest",
+                           "Dublin",
+                           "Rome",
+                           "Riga",
+                           "Vilnius",
+                           "Luxembourg (city)",
+                           "Valetta",
+                           "Amsterdam",
+                           "Warsaw",
+                           "Lisbon",
+                           "Bucharest",
+                           "Bratislava",
+                           "Ljubljana",
+                           "Madrid",
+                           "Stockholm",
+                           "London"]
+
+    var usesEuro = [true,
+                    true,
+                    false,
+                    false,
+                    true,
+                    false,
+                    false,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true,
+                    false,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true,
+                    false,
+                    true,
+                    false,
+                    true,
+                    true,
+                    true,
+                    false,
+                    false]
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIBarButtonItem!
@@ -108,10 +108,10 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-//        for index in 0..<countryNames.count {
-//            let newCountry = Nation(name: countryNames[index], capital: countryCapitals[index], euro: usesEuro[index])
-//            nations.append(newCountry)
-//        }
+        for index in 0..<countryNames.count {
+            let newCountry = Nation(name: countryNames[index], capital: countryCapitals[index], euro: usesEuro[index])
+            nations.append(newCountry)
+        }
         loadData()
     }
     
@@ -179,11 +179,18 @@ class ViewController: UIViewController {
             addButton.isEnabled = false
         }
     }
-    
-    
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension ViewController: UITableViewDelegate, UITableViewDataSource, ListTableViewCellDelegate {
+    func euroBoxButtonToggled(sender: ListTableViewCell) {
+        // figure out which row was pressed
+        if let selectedIndexPath = tableView.indexPath(for: sender) {
+            nations[selectedIndexPath.row].euro = !nations[selectedIndexPath.row].euro
+            tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
+            saveData()
+        }
+    }
+    
     // how many cells are in UITable, returns Int
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         nations.count
@@ -191,9 +198,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     // formatting cells so that they are "re-used", iOS only uses a defined amount of cells on a page. e.g. if table has 1000 elements, when you scroll the cells move and are reused
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = nations[indexPath.row].name
-        cell.detailTextLabel?.text = "Capital: \(nations[indexPath.row].capital)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ListTableViewCell
+        cell.delegate = self
+        cell.nation = nations[indexPath.row]
         return cell
     }
     
@@ -213,5 +220,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         nations.insert(itemToMove, at: destinationIndexPath.row)
         saveData()
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
+    }
 }
